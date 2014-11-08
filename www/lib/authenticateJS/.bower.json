@@ -1,0 +1,31 @@
+{
+  "name": "authenticatejs",
+  "version": "0.1.1",
+  "authors": [
+    "Riad Benguella <benguella@gmail.com>"
+  ],
+  "description": "A simple security library for angularjs",
+  "license": "MIT",
+  "main": "build/authenticate.js",
+  "ignore": [
+    "**/.*",
+    "src",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "angular-route": "*"
+  },
+  "homepage": "https://github.com/youknowriad/authenticate.js",
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.1",
+    "commit": "c83bb7938bb4357da1f1567a820a4805135a312a"
+  },
+  "_source": "git://github.com/youknowriad/authenticate.js.git",
+  "_target": "~0.1.1",
+  "_originalSource": "authenticateJS",
+  "_direct": true
+}
