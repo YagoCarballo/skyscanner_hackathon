@@ -1,4 +1,4 @@
-angular.module('social-flights.query', ['ngRoute', 'ngCookies', 'ngMaterial'])
+angular.module('social-flights.query', ['ngRoute', 'ngCookies', 'ngMaterial', 'social-flights.config'])
     .factory('toastService', function($http){
       return {
         displayToast: function(callback){

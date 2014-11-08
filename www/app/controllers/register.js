@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('social-flights.register', ['ngRoute', 'ngCookies'])
+angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-flights.config'])
 
     .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/register', {

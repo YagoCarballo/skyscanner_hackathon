@@ -3,10 +3,11 @@ angular.module('social-flights', [
   'ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial',
 
   // Configuration
-  'social-flights',
+  'social-flights.config',
 
   // Controllers
-  'social-flights.controllers', 'social-flights.register'
+  'social-flights.controllers.navigation', 'social-flights.controllers.login',
+  'social-flights.controllers', 'social-flights.register', 'social-flights.controllers.profile'
 ])
 
   //Configure routes
