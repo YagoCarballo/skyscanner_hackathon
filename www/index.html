@@ -1,42 +1,68 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+<html ng-app="social-flights">
+<head>
+  <title>Index</title>
+  <!-- Libraries -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="lib/angular-cookies/angular-cookies.js"></script>
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/cryptojslib/rollups/sha512.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="lib/angular-animate/angular-animate.js"></script>
+  <script src="lib/authenticateJS/build/authenticate.js"></script>
+  <script src="lib/hammerjs/hammer.js"></script>
+  <script src="lib/angular-aria/angular-aria.js"></script>
+  <script src="lib/angular-material/angular-material.js"></script>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  <!-- include files -->
+  <script src="app/configuration.js"></script>
+  <script src="app/app.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  <!-- Controllers -->
+  <script src="app/controllers/navigation.js"></script>
+  <script src="app/controllers/controllers.js"></script>
+  <script src="app/controllers/login.js"></script>
+  <script src="app/controllers/register.js"></script>
+  <script src="app/controllers/profile.js"></script>
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- Services -->
+  <script stc="app/services/toast.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
-  </head>
-  <body ng-app="starter" animation="slide-left-right-ios7">
-    <!-- 
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
-        Back
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!-- 
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
-  </body>
+  <!-- library stylesheets -->
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/angular-material.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/default-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/light-blue-dark-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/pink-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/amber-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/grey-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/red-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/teal-theme.css">
+  <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/indigo-theme.css">
+
+  <link rel="stylesheet" type="text/css" href="css/login.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body ng-controller="appController">
+<section layout="horizontal" flex>
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" component-id="left" is-locked-open="$media('md')">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Social Flights</h1>
+    </md-toolbar>
+
+    <md-content class="md-padding" ng-controller="LeftCtrl">
+      <button class="menu-item menu-title" onClick="parent.location='#/'" ink-ripple>Home</button>
+      <button class="menu-item menu-title" onClick="parent.location='#/login'" ink-ripple>Login</button>
+      <button class="menu-item menu-title" onClick="parent.location='#/register'" ink-ripple>Register</button>
+      <button class="menu-item menu-title" onClick="parent.location='#/about'" ink-ripple>About</button>
+      <button class="menu-item menu-title" onClick="parent.location='#/profile'" ink-ripple>Profile</button>
+    </md-content>
+  </md-sidenav>
+
+  <md-content ng-view scroll-y flex></md-content>
+</section>
+</body>
 </html>
