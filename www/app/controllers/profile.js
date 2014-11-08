@@ -8,10 +8,15 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
 
         var user_id = $routeParams.id;
 
-        var user = $cookieStore.get('user');
-        if (user) {
-            $scope.user = user;
+        var json_user = localStorage.getItem('user');
+        if (json_user) {
+            $scope.user = JSON.parse(json_user);
         }
+
+        //var user = $cookieStore.get('user');
+        //if (user) {
+        //    $scope.user = user;
+        //}
 
         $scope.$$phase || $scope.$apply();
         if(checkAuth($cookieStore.get('access_token'))) {
@@ -28,14 +33,22 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
                 console.log(data);
 
                 if(data.status_code == "200"){
-                    $cookieStore.put('access_token', data.data.access_key);
-                    $cookieStore.put('user', data.data);
+                    localStorage.setItem('access_token', data.data.access_key);
+                    localStorage.setItem('user', JSON.stringify(data.data));
+
+                    //$cookieStore.put('access_token', data.data.access_key);
+                    //$cookieStore.put('user', data.data);
+
                     $scope.user = data.data;
 
                 } else if(data.status_code == "403") {
                     $scope.registerError = data.status_code;
-                    $cookieStore.remove('access_token');
-                    $cookieStore.remove('user');
+
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('user');
+
+                    //$cookieStore.remove('access_token');
+                    //$cookieStore.remove('user');
 
                     $location.path("/login");
 

@@ -31,14 +31,22 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
              console.log(data);
 
              if(data.status_code == "200"){
-                 $cookieStore.put('access_token', data.data.access_key);
+                 localStorage.setItem('access_token', data.data.access_key);
+                 localStorage.setItem('user', JSON.stringify(data.data));
+
+                 //$cookieStore.put('access_token', data.data.access_key);
+
                  $scope.registerSuccess = data.status_code;
-                 $location.path("/profile");
+                 $location.path("/profile/"+data.data.id);
 
              } else if(data.status_code == "403") {
                  $scope.registerError = data.status_code;
-                 $cookieStore.remove('access_token');
-                 $cookieStore.remove('user');
+
+                 localStorage.removeItem('access_token');
+                 localStorage.removeItem('user');
+
+                 //$cookieStore.remove('access_token');
+                 //$cookieStore.remove('user');
 
              }  else if (data.status_code == "409"){
                  $scope.formError = data.status_code + " - Email already exists.";

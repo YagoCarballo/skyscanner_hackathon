@@ -9,7 +9,11 @@ angular.module('social-flights.controllers.navigation', ['ngRoute', 'ngCookies',
     })
 
     .controller('LeftCtrl', function($scope, $cookieStore, $location, $timeout, $mdSidenav) {
-        $scope.user = $cookieStore.get('user');
+        var json_user = localStorage.getItem('user');
+        if (json_user) {
+            $scope.user = JSON.parse(json_user);
+        }
+        //$scope.user = $cookieStore.get('user');
 
         $scope.close = function() {
             $mdSidenav('left').close();
@@ -17,8 +21,11 @@ angular.module('social-flights.controllers.navigation', ['ngRoute', 'ngCookies',
 
         $scope.load = function (path) {
             if (path === '/logout') {
-                $cookieStore.remove('access_token');
-                $cookieStore.remove('user');
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('user');
+
+                //$cookieStore.remove('access_token');
+                //$cookieStore.remove('user');
                 $location.path('/');
 
             } else if (path === '/profile') {

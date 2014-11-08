@@ -5,6 +5,21 @@
     </div>
   </md-toolbar>
 <md-content class="md-padding" style="height: 600px;">
-  <h2>Email: {{ user.email }}</h2>
-  <h3>Joined Date: {{ user.joined_date | date: 'dd-MM-yyyy' }}</h3>
+    <h2>Email: {{ user.email }}</h2>
+    <h3>Joined Date: {{ user.joined_date | date: 'dd-MM-yyyy' }}</h3>
+
+    <md-list>
+        <md-item ng-repeat="flight in user.flights">
+            <md-item-content>
+                <div class="md-tile-content">
+                    <h3>{{flight.title}}</h3>
+                    <h4>{{flight.date | date: 'dd-MM-yyy hh:mm'}}</h4>
+                    <p>
+                        {{flight.price}}
+                    </p>
+                </div>
+            </md-item-content>
+        </md-item>
+    </md-list>
+
 </md-content>

@@ -44,14 +44,21 @@ angular.module('social-flights.controllers.login', ['ngRoute', 'ngCookies', 'ui.
                 }
             }).success(function (data, status, headers, config) {
                 if (data.status_code == "200"){
-                    $cookieStore.put('access_token', data.data.access_key);
-                    $cookieStore.put('user', data.data);
-                    $location.path("/profile");
+                    localStorage.setItem('access_token', data.data.access_key);
+                    localStorage.setItem('user', JSON.stringify(data.data));
+
+                    //$cookieStore.put('access_token', data.data.access_key);
+                    //$cookieStore.put('user', data.data);
+
+                    $location.path("/profile/"+data.data.id);
                     $scope.toast = "You have logged in!";
 
                 } else if(data.status_code == "403") {
-                    $cookieStore.remove('access_token');
-                    $cookieStore.remove('user');
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('user');
+
+                    //$cookieStore.remove('access_token');
+                    //$cookieStore.remove('user');
                     $scope.toast = "Incorrect username or password";
                 }
 
