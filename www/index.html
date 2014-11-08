@@ -23,7 +23,6 @@
 
   <script src="app/controllers/controllers.js"></script>
   <script src="app/controllers/register.js"></script>
-  <script src="app/controllers/query.js"></script>
   <script stc="app/services/toast.js"></script>
 
 
@@ -50,9 +49,8 @@
     </md-toolbar>
 
     <md-content class="md-padding" ng-controller="LeftCtrl">
-      <button class="menu-item menu-title" onClick="parent.location='#'" ink-ripple>Home</button>
+      <button class="menu-item menu-title" onClick="parent.location='#/'" ink-ripple>Home</button>
       <button class="menu-item menu-title" onClick="parent.location='#/login'" ink-ripple>Login</button>
-      <button class="menu-item menu-title" onClick="parent.location='#/logout'" ink-ripple>Logout</button>
       <button class="menu-item menu-title" onClick="parent.location='#/register'" ink-ripple>Register</button>
       <button class="menu-item menu-title" onClick="parent.location='#/about'" ink-ripple>About</button>
       <button class="menu-item menu-title" onClick="parent.location='#/profile'" ink-ripple>Profile</button>
