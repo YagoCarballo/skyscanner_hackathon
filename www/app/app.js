@@ -1,5 +1,5 @@
 //Create the module
-var client = angular.module('clientApp', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'clientApp.query', 'clientApp.register']);
+var client = angular.module('social-flights', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.query', 'social-flights.register']);
 
 //Configure routes
 client.config(function($routeProvider, $httpProvider){

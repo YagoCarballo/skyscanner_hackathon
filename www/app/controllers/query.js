@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('clientApp.query', ['ngRoute', 'ngCookies', 'ngMaterial'])
+angular.module('social-flights.query', ['ngRoute', 'ngCookies', 'ngMaterial'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/query', {
