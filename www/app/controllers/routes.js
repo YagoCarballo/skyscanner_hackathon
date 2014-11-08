@@ -1,5 +1,5 @@
 //Configure routes
-client.config(function($routeProvider, $httpProvider){
+controllers.config(function($routeProvider, $httpProvider){
 
  $httpProvider.defaults.useXDomain = true;
  $httpProvider.defaults.withCredentials = true;

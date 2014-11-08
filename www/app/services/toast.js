@@ -9,7 +9,7 @@ angular.module('social-flights.query', ['ngRoute', 'ngCookies', 'ngMaterial'])
             hideDelay: 2000,
             position: getToastPosition()
           });
-          
+
           function getToastPosition() {
           return Object.keys($scope.toastPosition)
             .filter(function(pos) { return $scope.toastPosition[pos]; })
