@@ -3,12 +3,6 @@ angular.module('social-flights.controllers', ['ngRoute', 'ngCookies', 'ui.bootst
 
     })
 
-    .controller('appController', function($scope, $cookies, $location, $timeout, $mdSidenav){
-        $scope.toggleLeft = function() {
-            $mdSidenav('left').toggle();
-        };
-    })
-
     .controller('ToastCtrl', function($scope, $mdToast) {
         $scope.closeToast = function() {
             $mdToast.hide();

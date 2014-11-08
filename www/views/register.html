@@ -4,13 +4,33 @@
       <span class="md-flex"><h1>{{message}}</h1></span>
     </div>
 </md-toolbar>
-<md-content class="md-padding" style="width: 100%;">
+<md-content class="md-flex">
     <section layout="horizontal" layout-sm="horizontal" layout-align="center center">
-        <md-content md-theme="pink">
-        <form class="form-form" name="formform" ng-submit="submit()" >
-            <md-text-float label="email" ng-model="form.email" type="email" required autofocus></md-text-float>
-            <md-text-float label="password" ng-model="form.password" type="password" required></md-text-float>
-            <md-button class="md-raised md-primary" type="submit">Register</md-button>
-        </form>
+        <md-content md-theme="pink"  class="md-flex" flex>
+            <form class="form-form" name="form" ng-submit="submit()" >
+                <md-content  md-theme="light-blue-dark" layout="horizontal" layout-align="space-around">
+                    <md-text-float label="email" ng-model="form.email" type="email" required autofocus></md-text-float>
+                    <md-text-float label="password" ng-model="form.password" type="password" required></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around">
+                    <md-text-float label="First Name" ng-model="form.first_name" type="text"></md-text-float>
+                    <md-text-float label="Last Name" ng-model="form.last_name" type="text"></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around">
+                    <md-text-float label="City" ng-model="form.city" type="text"></md-text-float>
+                    <md-text-float label="Post Code" ng-model="form.postcode" type="text"></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around">
+                    <md-text-float label="Phone Number" ng-model="form.phone" type="tel"></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around" style="margin-top: 3em;">
+                    <md-button class="md-raised md-primary" type="submit" aria-label="register button" flex="80">Register</md-button>
+                </md-content>
+            </form>
+        </md-content>
     </section>
 </md-content>

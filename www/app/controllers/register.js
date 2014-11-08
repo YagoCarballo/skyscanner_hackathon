@@ -16,14 +16,29 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
          var password = $scope.form.password;
          var hash = CryptoJS.SHA512(password).toString();
 
+         var email = $scope.form.email;
+         var first_name = $scope.form.first_name;
+         var last_name = $scope.form.last_name;
+         var phone = $scope.form.phone;
+         var city = $scope.form.city;
+         var postcode = $scope.form.postcode;
+
+         var object_to_update = {
+             email : email,
+             password: hash
+         };
+
+         if (first_name) object_to_update.first_name = first_name;
+         if (last_name) object_to_update.last_name = last_name;
+         if (phone) object_to_update.phone = phone;
+         if (city) object_to_update.city = city;
+         if (postcode) object_to_update.postcode = postcode;
+
          $http({
              url: backend+"/users/register",
              method: 'POST',
              dataType: 'json',
-             data: JSON.stringify({
-                 email: $scope.form.email,
-                 password: hash
-             }),
+             data: JSON.stringify(object_to_update),
              headers: {
                  'Content-Type': 'application/json; charset=utf-8'
              }

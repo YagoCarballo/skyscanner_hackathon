@@ -1,10 +1,8 @@
 angular.module('social-flights.controllers.navigation', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.config'])
-    .controller('AppCtrl', function($scope, $cookieStore, $timeout, $mdSidenav) {
+    .controller('appController', function($scope, $cookies, $location, $timeout, $mdSidenav){
         $scope.toggleLeft = function() {
+            refreshMenu($scope);
             $mdSidenav('left').toggle();
-        };
-        $scope.toggleRight = function() {
-            $mdSidenav('right').toggle();
         };
     })
 
@@ -17,6 +15,7 @@ angular.module('social-flights.controllers.navigation', ['ngRoute', 'ngCookies',
 
         $scope.close = function() {
             $mdSidenav('left').close();
+            refreshMenu($scope);
         };
 
         $scope.load = function (path) {
@@ -41,11 +40,15 @@ angular.module('social-flights.controllers.navigation', ['ngRoute', 'ngCookies',
             }
 
             $mdSidenav('left').close();
+            refreshMenu($scope);
         }
-    })
-
-    .controller('RightCtrl', function($scope, $timeout, $mdSidenav) {
-        $scope.close = function() {
-            $mdSidenav('right').close();
-        };
     });
+
+function refreshMenu ($scope) {
+    var json_token = localStorage.getItem('access_token');
+    if (json_token) {
+        $scope.isLoggedIn = true;
+    } else {
+        $scope.isLoggedIn = false;
+    }
+}

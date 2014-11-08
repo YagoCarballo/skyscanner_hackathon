@@ -53,7 +53,7 @@ angular.module('social-flights', [
       request: function (config) {
         config.headers = config.headers || {};
         if ($window.sessionStorage.token) {
-          config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+          config.headers.Authorization = 'SOCIALFLIGHT ' + $window.sessionStorage.token;
         }
         return config;
       },
@@ -73,3 +73,4 @@ function checkAuth(cookie)  {
   }
   return false;
 }
+
