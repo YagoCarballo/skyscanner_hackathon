@@ -1,0 +1,46 @@
+<md-toolbar md-theme="indigo">
+    <div class="md-toolbar-tools">
+      <div ng-include="'back.html'"></div>
+      <span class="md-flex"><h1>{{message}}</h1></span>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding" style="width: 100%;">
+    <section layout="horizontal" layout-sm="horizontal" layout-align="center center">
+        <md-content md-theme="pink">
+        <form class="form-form" name="formform" ng-submit="submit()" >
+          <md-text-float label="username" ng-model="form.username" required autofocus></md-text-float>
+          <md-text-float label="password" ng-model="form.password" type="password" required></md-text-float>
+          <md-button class="md-raised md-primary" type="submit">Register</md-button>
+        </form>
+      </section>
+  </md-content>
+
+<!--
+<md-card>
+<h1>{{message}}</h1>
+
+<div ng-controller="registerController as form">
+    <h3 ng-show="formError">
+        <div class="alert alert-danger" role="alert">
+            <p>{{formError}}</p>
+        </div>
+    </h3>
+    <h3 ng-show="formSuccess">
+        <div class="alert alert-success" role="alert">
+            <p>Success! You're logged in</p>
+        </div>
+    </h3>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form class="form-form" name="formform" ng-submit="submit()" >
+                username: <input type="text" ng-model="form.username" placeholder="username" class="form-control" tooltip="Please enter your username"  tooltip-trigger="focus" tooltip-placement="top" required autofocus/><br />
+                password: <input type="password" ng-model="form.password" placeholder="password" class="form-control" tooltip="Please enter your password"  tooltip-trigger="focus" tooltip-placement="top" required/><br />
+                <button class="btn btn-lg btn-primary btn-block" type="submit">form</button>
+            </form>
+        </div>
+    </div>
+</div>
+</md-card>
+
+-->

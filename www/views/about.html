@@ -1,0 +1,24 @@
+<!-- about.html -->
+
+      <md-toolbar md-theme="">
+          <div class="md-toolbar-tools">
+            <div ng-include="'back.html'"></div>
+            <span class="md-flex"><h1>{{message}}</h1></span>
+          </div>
+        </md-toolbar>
+<md-content class="md-padding" style="height: 600px;">
+        <h2>Module: {{ module }}</h2>
+        <h3>Team: {{team}}</h3>
+
+
+        <h4>Members</h4>
+        <ul>
+          <li ng-repeat="member	in members">
+            {{member}}
+          </li>
+        </ul>
+        <br><br>
+        <b>Version: {{version}}</b>
+
+
+  </md-content>

@@ -1,0 +1,17 @@
+
+    <md-toolbar md-theme="indigo">
+        <div class="md-toolbar-tools">
+          <div ng-include="'back.html'"></div>
+          <span class="md-flex"><h1>{{message}}</h1></span>
+        </div>
+      </md-toolbar>
+      <md-content class="md-padding" style="width: 100%;">
+        <section layout="horizontal" layout-sm="horizontal" layout-align="center center">
+            <md-content md-theme="pink">
+            <form class="login-form" name="loginform" ng-submit="submit()" >
+              <md-text-float label="username" ng-model="login.username" placeholder="username" required autofocus></md-text-float>
+              <md-text-float label="password" ng-model="login.password" type="password" placeholder="password" required></md-text-float>
+              <md-button class="md-raised md-primary" type="submit">Login</md-button>
+            </form>
+          </section>
+      </md-content>

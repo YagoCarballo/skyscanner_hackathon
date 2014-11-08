@@ -38,15 +38,14 @@
   <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/teal-theme.css">
   <link rel="stylesheet" type="text/css" href="lib/angular-material/themes/indigo-theme.css">
 
-
-  <link rel="stylesheet" type="text/css" href="assets/css/login.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/login.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body ng-controller="appController">
 <section layout="horizontal" flex>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" component-id="left" is-locked-open="$media('md')">
     <md-toolbar class="md-theme-indigo">
-      <h1 class="md-toolbar-tools">Camera DB</h1>
+      <h1 class="md-toolbar-tools">Social Flights</h1>
     </md-toolbar>
 
     <md-content class="md-padding" ng-controller="LeftCtrl">
@@ -56,7 +55,6 @@
       <button class="menu-item menu-title" onClick="parent.location='#/register'" ink-ripple>Register</button>
       <button class="menu-item menu-title" onClick="parent.location='#/about'" ink-ripple>About</button>
       <button class="menu-item menu-title" onClick="parent.location='#/profile'" ink-ripple>Profile</button>
-      <button class="menu-item menu-title" onClick="parent.location='#/query'" ink-ripple>Query</button>
     </md-content>
   </md-sidenav>
 
