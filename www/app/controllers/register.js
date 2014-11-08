@@ -10,12 +10,10 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
     })
     }])
 
-    .controller('registerController', function($scope, $http, $cookies, $location){
+    .controller('registerController', function($scope, $http, $cookieStore, $location){
      $scope.message="Register";
      $scope.submit = function(){
-         console.log($scope.form);
          var password = $scope.form.password;
-
          var hash = CryptoJS.SHA512(password).toString();
 
          $http({
@@ -32,22 +30,24 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
          }).success(function (data, status, headers, config) {
              console.log(data);
 
-             if(data.status == "200"){
-                 $scope.registerSuccess = data.status;
-                 $scope.$apply(function() { $location.path("/login"); });
+             if(data.status_code == "200"){
+                 $cookieStore.put('access_token', data.data.access_key);
+                 $scope.registerSuccess = data.status_code;
+                 $location.path("/profile");
 
-             } else if(data.status == "403") {
-                 $scope.registerError = data.status;
+             } else if(data.status_code == "403") {
+                 $scope.registerError = data.status_code;
+                 $cookieStore.remove('access_token');
+                 $cookieStore.remove('user');
 
-             }  else if (data.status == "409"){
-                 $scope.formError = data.status + " - Username already exists.";
+             }  else if (data.status_code == "409"){
+                 $scope.formError = data.status_code + " - Email already exists.";
              }
 
-             $scope.$apply();
-             console.log(data.status);
+             console.log(data.status_code);
 
          }).error(function(data, status, headers, config) {
-             $scope.registerStatus = data.status;
+             $scope.registerStatus = status;
              console.log("error");
          });
      }

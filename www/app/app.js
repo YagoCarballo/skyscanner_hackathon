@@ -38,26 +38,10 @@ angular.module('social-flights', [
         requiresLogin: false
       })
 
-      .when('/profile', {
+      .when('/profile/:id', {
         templateUrl: 'views/profile.html',
         controller: 'profileController',
         requiresLogin: true
-      })
-
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'aboutController',
-        security: true
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
-        controller: 'contactController',
-        requiresLogin: true
-      })
-
-      .when('/countries', {
-        templateUrl: 'views/countries.html',
-        controller: 'countriesController'
       })
 
     // if none of the above states are matched, use this as the fallback

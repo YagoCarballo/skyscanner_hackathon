@@ -54,11 +54,11 @@
     </md-toolbar>
 
     <md-content class="md-padding" ng-controller="LeftCtrl">
-      <button class="menu-item menu-title" onClick="parent.location='#/'" ink-ripple>Home</button>
-      <button class="menu-item menu-title" onClick="parent.location='#/login'" ink-ripple>Login</button>
-      <button class="menu-item menu-title" onClick="parent.location='#/register'" ink-ripple>Register</button>
-      <button class="menu-item menu-title" onClick="parent.location='#/about'" ink-ripple>About</button>
-      <button class="menu-item menu-title" onClick="parent.location='#/profile'" ink-ripple>Profile</button>
+      <button class="menu-item menu-title" ng-click="load('/')"         ink-ripple>Home</button>
+      <button class="menu-item menu-title" ng-click="load('/login')"    ink-ripple>Login</button>
+      <button class="menu-item menu-title" ng-click="load('/register')" ink-ripple>Register</button>
+      <button class="menu-item menu-title" ng-click="load('/profile')" ink-ripple>Profile</button>
+      <button class="menu-item menu-title" ng-click="load('/logout')" ink-ripple>Logout</button>
     </md-content>
   </md-sidenav>
 
