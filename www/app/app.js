@@ -35,7 +35,7 @@ angular.module('social-flights', [
       .when('/register', {
         templateUrl: 'views/register.html',
         controller: 'registerController',
-        requiresLogin: true
+        requiresLogin: false
       })
 
       .when('/profile', {
