@@ -8,7 +8,7 @@ angular.module('social-flights', [
   // Controllers
   'social-flights.controllers.navigation', 'social-flights.controllers.login',
   'social-flights.controllers', 'social-flights.register', 'social-flights.controllers.profile',
-  'social-flights.controllers.flights', 'social-flights.controllers.group'
+  'social-flights.controllers.flights', 'social-flights.controllers.group', 'social-flights.controllers.flight'
 ])
 
   //Configure routes
