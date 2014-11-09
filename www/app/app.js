@@ -12,12 +12,10 @@ angular.module('social-flights', [
 ])
 
   //Configure routes
-  .config(function($routeProvider, $locationProvider, $httpProvider){
+  .config(function($routeProvider, $httpProvider){
 
    $httpProvider.defaults.useXDomain = true;
    $httpProvider.defaults.withCredentials = true;
-
-   $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
