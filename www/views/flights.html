@@ -15,6 +15,27 @@
             <md-text-float label="Outbound" type="date" ng-model="form.from"> </md-text-float>
             <md-text-float label="Inbound" type="date" ng-model="form.to"> </md-text-float>
         </md-content>
+
+        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <md-slider md-theme="indigo" flex="60" min="0" max="8" ng-model="people" aria-label="red" id="red-slider"></md-slider>
+        </md-content>
+        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <b>People:</b>{{people}}
+        </md-content>
+        <br />
+        <md-content ng-hide="loading" layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <md-button class="md-primary md-raised" md-theme="indigo" ng-click="search()">Find Tickets</md-button>
+        </md-content>
+    </md-whiteframe>
+
+    <md-content ng-show="loading" layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+        <md-progress-circular md-theme="indigo" mode="indeterminate"></md-progress-circular>
+    </md-content>
+
+    <br />
+
+    <md-whiteframe class="md-whiteframe-z2" layout="vertical" layout-align="center center" flex>
+
     </md-whiteframe>
 
 </md-content>

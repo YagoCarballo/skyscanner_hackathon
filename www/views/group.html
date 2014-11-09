@@ -1,0 +1,28 @@
+<md-toolbar md-theme="indigo">
+    <div class="md-toolbar-tools">
+        <div ng-include="'back.html'"></div>
+        <span class="md-flex"><h1>{{ group.group_name }}</h1></span>
+    </div>
+</md-toolbar>
+<md-content class="md-padding" style="width: 100%;">
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
+        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <pre style="border: none;background-color: transparent;">{{ group.description }}</pre>
+        </md-content>
+    </md-whiteframe>
+
+    <br />
+
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
+        <md-list  style="width: 100%;">
+            <md-item ng-repeat="member in group.members" flex ng-click="openProfile(member)">
+                <md-item-content>
+                    <div class="md-tile-content">
+                        <md-button aria-label="button" class="md-primary" md-theme="green" style="border-bottom: solid 1px dodgerblue;">{{ member.email }}</md-button>
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+
+</md-content>

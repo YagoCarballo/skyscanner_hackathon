@@ -1,4 +1,4 @@
-<md-toolbar md-theme="indigo">
+<md-toolbar md-theme="default">
     <div class="md-toolbar-tools">
       <div ng-include="'back.html'"></div>
       <span class="md-flex"><h1>{{message}}</h1></span>
@@ -7,7 +7,7 @@
 <md-content class="md-padding" layout-align="space-around">
 
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center">
-        <md-toolbar class="md-theme-indigo">
+        <md-toolbar md-theme="red">
             <div class="md-toolbar-tools">
                 <span class="md-flex">Personal Info</span>
             </div>
@@ -31,7 +31,7 @@
     </md-whiteframe>
 
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" style="margin-top: 1em;">
-        <md-toolbar class="md-theme-indigo">
+        <md-toolbar  md-theme="teal">
             <div class="md-toolbar-tools">
                 <span class="md-flex">Flights</span>
             </div>
@@ -52,23 +52,23 @@
     </md-whiteframe>
 
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" style="margin-top: 1em;">
-        <md-toolbar class="md-theme-indigo">
+        <md-toolbar md-theme="amber">
             <div class="md-toolbar-tools">
                 <span class="md-flex">Groups</span>
             </div>
         </md-toolbar>
-        <md-list>
-            <md-item ng-repeat="group in groups">
+        <md-list flex style="width: 100%;">
+            <md-item ng-repeat="group in groups" style="cursor: hand;" ng-click="groupDetails(group)" flex>
                 <md-item-content>
-                    <div class="md-tile-content">
+                    <md-button class="md-primary" md-theme="green" aria-label="group button" flex style="width: 100%;height: 8em;border-bottom:solid 1px #70c4cc;">
                         <h3>{{ group.name }}</h3>
-                        <h4>{{ group.description }}</h4>
-                    </div>
+                        <p>{{ group.description }}</p>
+                    </md-button>
                 </md-item-content>
             </md-item>
         </md-list>
 
-        <md-button class="md-primary md-raised" md-theme="orange" ng-click="showGridBottomSheet($event)" aria-label=Group Options>Groups Options</md-button>
+        <md-button class="md-primary md-raised" md-theme="indigo" ng-click="showGridBottomSheet($event)" aria-label=Group Options>Groups Options</md-button>
     </md-whiteframe>
 
 </md-content>

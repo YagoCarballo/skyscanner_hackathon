@@ -49,8 +49,6 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
                  localStorage.setItem('access_token', data.data.access_key);
                  localStorage.setItem('user', JSON.stringify(data.data));
 
-                 //$cookieStore.put('access_token', data.data.access_key);
-
                  $scope.registerSuccess = data.status_code;
                  $location.path("/profile/"+data.data.id);
 
@@ -59,9 +57,6 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
 
                  localStorage.removeItem('access_token');
                  localStorage.removeItem('user');
-
-                 //$cookieStore.remove('access_token');
-                 //$cookieStore.remove('user');
 
              }  else if (data.status_code == "409"){
                  $scope.formError = data.status_code + " - Email already exists.";

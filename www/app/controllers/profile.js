@@ -6,6 +6,9 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
             joined_date : new Date()
         };
 
+        $scope.flights = [];
+        $scope.groups = [];
+
         $scope.user_id = $routeParams.id;
 
         var json_user = localStorage.getItem('user');
@@ -16,11 +19,19 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
             }
         }
 
+        var json_flights = localStorage.getItem('flights');
+        if (json_flights) {
+            $scope.flights = JSON.parse(json_flights);
+        }
+
+        var json_groups = localStorage.getItem('groups');
+        if (json_groups) {
+            $scope.groups = JSON.parse(json_groups);
+        }
+
         $scope.$$phase || $scope.$apply();
         if(checkAuth(localStorage.getItem('access_token'))) {
-            fetchProfile($scope, $http, $location);
-            fetchGroups($scope, $http, $location);
-            fetchFlights($scope, $http, $location);
+            refresh ();
 
         } else {
             $mdToast.show({
@@ -39,6 +50,16 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
                 $scope.alert = clickedItem.name + ' clicked!';
             });
         };
+
+        $scope.groupDetails = function (group) {
+            $location.path("/group/"+group.id);
+        };
+
+        function refresh () {
+            fetchProfile($scope, $http, $location);
+            fetchGroups($scope, $http, $location);
+            fetchFlights($scope, $http, $location);
+        }
     })
 
     .controller('GridBottomSheetCtrl', function($scope, $mdBottomSheet, $mdDialog) {
@@ -126,6 +147,7 @@ function fetchGroups ($scope, $http, $location) {
 
         if(data.status_code == "200"){
             $scope.groups = data.data;
+            localStorage.setItem('groups', JSON.stringify(data.data));
 
         } else if(data.status_code == "403") {
             $scope.registerError = data.status_code;
@@ -160,6 +182,7 @@ function fetchFlights ($scope, $http, $location) {
 
         if(data.status_code == "200"){
             $scope.flights = data.data;
+            localStorage.setItem('flights', JSON.stringify(data.data));
 
         } else if(data.status_code == "403") {
             $scope.registerError = data.status_code;
@@ -189,7 +212,7 @@ function addGroup ($scope, $http, $mdDialog, $location) {
             method: 'POST',
             dataType: 'json',
             data: JSON.stringify({
-                name: $scope.form.name,
+                group_name: $scope.form.name,
                 password: hash,
                 description: $scope.form.description,
                 members: [
