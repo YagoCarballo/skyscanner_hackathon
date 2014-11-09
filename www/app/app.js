@@ -57,6 +57,12 @@ angular.module('social-flights', [
         requiresLogin: true
       })
 
+      .when('/flight/:id', {
+        templateUrl: 'views/flight.html',
+        controller: 'flightController',
+        requiresLogin: true
+      })
+
     // if none of the above states are matched, use this as the fallback
     .otherwise('/');
   })
