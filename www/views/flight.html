@@ -1,0 +1,14 @@
+<md-toolbar md-theme="indigo">
+    <div class="md-toolbar-tools">
+        <div ng-include="'back.html'"></div>
+        <span class="md-flex"><h1>{{ flight.title }} <small>on {{ flight.out_date }}</small></h1></span>
+    </div>
+</md-toolbar>
+<md-content class="md-padding" style="width: 100%;">
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
+        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <pre style="border: none;background-color: transparent;">{{ flight.description }}</pre>
+        </md-content>
+    </md-whiteframe>
+
+</md-content>

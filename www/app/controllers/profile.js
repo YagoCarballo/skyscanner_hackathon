@@ -55,6 +55,10 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
             $location.path("/group/"+group.id);
         };
 
+        $scope.flightDetails = function (flight) {
+            $location.path("/flight/"+flight.id);
+        };
+
         function refresh () {
             fetchProfile($scope, $http, $location);
             fetchGroups($scope, $http, $location);
