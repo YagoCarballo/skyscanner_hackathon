@@ -41,8 +41,8 @@
                 <md-item-content>
                     <md-button class="md-primary" md-theme="green" aria-label="group button" flex style="width: 100%;height: 8em;border-bottom:solid 1px #70c4cc;">
                         <h3>{{flight.title}}</h3>
-                        <h4>{{flight.out_date | date: 'dd-MM-yyyy HH:mm'}}</h4>
-                        <p>
+                        <h4 style="margin: 0.1em;">{{ formatDate(flight.out_date) }}</h4>
+                        <p style="color: #00510c;">
                             £ {{flight.price | number:2}}
                         </p>
                     </md-button>

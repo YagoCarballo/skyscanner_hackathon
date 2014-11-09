@@ -29,6 +29,10 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
             $scope.groups = JSON.parse(json_groups);
         }
 
+        $scope.formatDate = function (date) {
+            return new Date(date).toString('dd-MM-yyyy HH:mm');
+        };
+
         $scope.$$phase || $scope.$apply();
         if(checkAuth(localStorage.getItem('access_token'))) {
             refresh ();

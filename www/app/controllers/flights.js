@@ -1,5 +1,5 @@
 angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.config'])
-    .controller('flightsController', function($scope, $http, $cookieStore, $location, $mdToast){
+    .controller('flightsController', function($scope, $http, $cookieStore, $location, $window, $mdToast){
         $scope.people = 1;
         $scope.loading = false;
         $scope.selected = undefined;
@@ -10,6 +10,10 @@ angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'u
             to: 'LHR',
             inbound: (12).days().fromNow(),
             outbound: (7).days().fromNow()
+        };
+
+        $scope.buy = function (flight) {
+            $window.open(flight.url);
         };
 
         $scope.search = function () {
@@ -87,6 +91,7 @@ function parseFlights ($scope, raw) {
 
     raw.Itineraries.forEach(function(route){
         var flight = {};
+        flight.url = route.PricingOptions[0].DeeplinkUrl;
 
         raw.Legs.forEach(function(leg){
             if (leg.Id === route.InboundLegId) {

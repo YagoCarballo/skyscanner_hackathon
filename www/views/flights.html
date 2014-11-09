@@ -36,7 +36,7 @@
 
     <md-whiteframe class="md-whiteframe-z2" layout="vertical" layout-align="center center" flex>
         <md-list>
-            <md-item ng-repeat="flight in flights">
+            <md-item ng-repeat="flight in flights" style="cursor: hand;" ng-click="buy(flight)">
                 <md-item-content>
                     <div class="md-tile-left" style="margin-right: 1em;">
                         <img ng-src="{{ flight.carrierLogo }}" class="face" alt="{{ flight.carrier }}">
