@@ -11,11 +11,18 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
 
         $scope.user_id = $routeParams.id;
 
-        var json_user = localStorage.getItem('user');
-        if (json_user) {
-            var user = JSON.parse(json_user);
-            if (user.id === $scope.user_id) {
-                $scope.user = JSON.parse(json_user);
+        if (scope.user_id === undefined) {
+            var json_user = localStorage.getItem('user');
+            if (json_user) {   
+                    $scope.user = JSON.parse(json_user);
+            }
+        } else {
+            var json_user = localStorage.getItem('user');
+            if (json_user) {
+                var user = JSON.parse(json_user);
+                if (user.id === $scope.user_id) {
+                    $scope.user = JSON.parse(json_user);
+                }
             }
         }
 
