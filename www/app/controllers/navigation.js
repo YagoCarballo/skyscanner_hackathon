@@ -28,9 +28,10 @@ angular.module('social-flights.controllers.navigation', ['ngRoute', 'ngCookies',
                 $location.path('/');
 
             } else if (path === '/profile') {
-                var user = $cookieStore.get('user');
+                var user = localStorage.getItem('user');
+                var user_parsed = JSON.parse(json_user);
                 if (user) {
-                    $location.path('/profile/'+user.id);
+                    $location.path('/profile/'+user_parsed.id);
                 } else {
                     $location.path('/login');
                 }
