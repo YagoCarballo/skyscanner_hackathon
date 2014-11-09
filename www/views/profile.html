@@ -43,7 +43,7 @@
                         <h3>{{flight.title}}</h3>
                         <h4>{{flight.date | date: 'dd-MM-yyy hh:mm'}}</h4>
                         <p>
-                            {{flight.price}}
+                            £ {{flight.price | number:2}}
                         </p>
                     </div>
                 </md-item-content>
