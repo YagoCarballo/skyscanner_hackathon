@@ -11,7 +11,7 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
 
         $scope.user_id = $routeParams.id;
 
-        if (scope.user_id === undefined) {
+        if ($scope.user_id === undefined) {
             var json_user = localStorage.getItem('user');
             if (json_user) {   
                     $scope.user = JSON.parse(json_user);
