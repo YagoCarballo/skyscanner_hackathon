@@ -1,14 +1,21 @@
 <md-toolbar md-theme="indigo">
     <div class="md-toolbar-tools">
         <div ng-include="'back.html'"></div>
-        <span class="md-flex"><h1>{{ flight.title }} <small>on {{ flight.out_date }}</small></h1></span>
+        <span class="md-flex"><h1>{{ flight.title }} <small>on {{ parseDate(flight.out_date) }}</small></h1></span>
     </div>
 </md-toolbar>
 <md-content class="md-padding" style="width: 100%;">
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
-        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
-            <pre style="border: none;background-color: transparent;">{{ flight.description }}</pre>
+        <md-content layout="horizontal" style="width: 100% !important;">
+            <md-switch ng-model="flight.confirmed" ng-click="confirm()" aria-label="Switch" style="width: 100% !important;">
+                This Flight is confirmed.
+            </md-switch>
         </md-content>
+    </md-whiteframe>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
+        <h2 style="display: inline;">Price</h2><h3 style="display: inline;color: #00510c;">£ {{flight.price | number:2}}</h3>
+        <md-button ng-hide="hideButton" class="md-raised" style="background-color: #00ff00;">Travel together</md-button>
     </md-whiteframe>
 
 </md-content>

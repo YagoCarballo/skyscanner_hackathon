@@ -6,6 +6,11 @@
 </md-toolbar>
 <md-content class="md-padding" style="width: 100%;">
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
+        <!--<md-content layout="horizontal" layout-align="space-around" style="height: 15em !important;">-->
+            <!--<input type="text" ng-model="selected_from" typeahead="country for country in countries | limitTo:3" ng-keypress="autocomplete('from')" class="form-control">-->
+            <!--<input type="text" ng-model="selected_to" typeahead="country for country in countries | limitTo:8" ng-keypress="autocomplete('to')" class="form-control">-->
+        <!--</md-content>-->
+
         <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
             <md-text-float label="From" ng-model="form.from"> </md-text-float>
             <md-text-float label="To" ng-model="form.to"> </md-text-float>

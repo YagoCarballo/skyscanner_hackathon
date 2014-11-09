@@ -13,6 +13,14 @@
 
     <br />
 
+    <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important; height: 5em;">
+        <md-button class="md-fab" aria-label="Time" ng-click="findFlights()">
+            <md-icon icon="img/ic_search_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+        </md-button>
+    </md-content>
+
+    <br />
+
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
         <md-list  style="width: 100%;">
             <md-item ng-repeat="member in group.members" flex ng-click="openProfile(member)">
@@ -20,6 +28,27 @@
                     <div class="md-tile-content">
                         <md-button aria-label="button" class="md-primary" md-theme="green" style="border-bottom: solid 1px dodgerblue;">{{ member.email }}</md-button>
                     </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" style="margin-top: 1em;">
+        <md-toolbar  md-theme="teal">
+            <div class="md-toolbar-tools">
+                <span class="md-flex">Flights</span>
+            </div>
+        </md-toolbar>
+        <md-list flex style="width: 100%;">
+            <md-item ng-repeat="flight in flights" style="cursor: hand;" ng-click="flightDetails(flight)" flex>
+                <md-item-content>
+                    <md-button class="md-primary" md-theme="green" aria-label="group button" flex style="width: 100%;height: 8em;border-bottom:solid 1px #70c4cc;">
+                        <h3>{{flight.title}}</h3>
+                        <h4 style="margin: 0.1em;">{{ formatDate(flight.out_date) }}</h4>
+                        <p style="color: #00510c;">
+                            £ {{flight.price | number:2}}
+                        </p>
+                    </md-button>
                 </md-item-content>
             </md-item>
         </md-list>

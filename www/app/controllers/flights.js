@@ -2,8 +2,9 @@ angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'u
     .controller('flightsController', function($scope, $http, $cookieStore, $location, $window, $mdToast){
         $scope.people = 1;
         $scope.loading = false;
-        $scope.selected = undefined;
-        $scope.countries = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+        $scope.selected_from = undefined;
+        $scope.selected_to = undefined;
+        $scope.countries = [];
 
         $scope.form = {
             from: 'EDI',
@@ -13,6 +14,7 @@ angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'u
         };
 
         $scope.buy = function (flight) {
+            PopulateDB($scope, $http, $location, flight);
             $window.open(flight.url);
         };
 
@@ -31,8 +33,8 @@ angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'u
                     outbounddate: $scope.form.outbound.toString('yyyy-MM-dd'),
                     inbounddate: $scope.form.inbound.toString('yyyy-MM-dd'),
                     adults: $scope.people,
-                    children: 1,
-                    locationschema: 'lata'
+                    children: 0,
+                    locationschema: 'Iata'
                 }),
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
@@ -61,6 +63,31 @@ angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'u
                 console.log(data);
             });
         };
+
+        $scope.autocomplete = function (field) {
+            var query = $scope.from;
+            if (field === 'to') {
+                query = $scope.to;
+            }
+
+            $http({
+                url: 'http://www.corsproxy.com/partners.api.skyscanner.net/apiservices/autosuggest/v1.0/GB/GBP/en-GB/?query='+query+'&apikey=ilw27259291653502403180676980633',
+                method: 'GET',
+                dataType: 'json',
+                data: {},
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Authorization': 'SOCIALFLIGHT ' + localStorage.getItem('access_token')
+                }
+            }).success(function (data, status, headers, config) {
+                console.log(data);
+                $scope.countries = data;
+            }).error(function (data, status, headers, config) {
+                $scope.loading = false;
+                $scope.registerStatus = status;
+                console.log(data);
+            });
+        }
     });
 
 function findFlights ($scope, $http, $location) {
@@ -92,10 +119,14 @@ function parseFlights ($scope, raw) {
     raw.Itineraries.forEach(function(route){
         var flight = {};
         flight.url = route.PricingOptions[0].DeeplinkUrl;
+        flight.price = route.PricingOptions[0].Price;
+        flight.outboundlegid = route.OutboundLegId;
+        flight.inboundlegid = route.InboundLegId;
 
         raw.Legs.forEach(function(leg){
             if (leg.Id === route.InboundLegId) {
                 flight.duration = leg.Duration;
+                flight.inbound = leg.Departure;
                 if (raw.Places[leg.SegmentIds[0]]) {
                     flight.from = raw.Places[leg.SegmentIds[0]].Code;
                 }
@@ -110,9 +141,51 @@ function parseFlights ($scope, raw) {
 
             } else if (leg.Id === route.OutboundLegId) {
                 flight.to = raw.Places[leg.SegmentIds[0]].Code;
+                flight.outbound = leg.Departure;
             }
         });
 
         $scope.flights.push(flight);
     });
+}
+
+function PopulateDB ($scope, $http, $location, flight) {
+    var user = JSON.parse(localStorage.getItem('user'));
+
+    if (user) {
+        $http({
+            url: backend + '/user/'+user.id+'/flight',
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({
+                country: 'GB',
+                currency: 'GBP',
+                locale: 'en-GB',
+                originplace: flight.from,
+                destinationplace: flight.to,
+                outbounddate: new Date(flight.outbound).toString('yyyy-MM-dd'),
+                inbounddate: new Date(flight.inbound).toString('yyyy-MM-dd'),
+                adults: $scope.people,
+                children: 0,
+                price: flight.price,
+                outboundlegid: flight.outboundlegid,
+                inboundlegid: flight.inboundlegid,
+                deeplink: flight.url
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': 'SOCIALFLIGHT ' + localStorage.getItem('access_token')
+            }
+        }).success(function (data, status, headers, config) {
+        }).error(function (data, status, headers, config) {
+            $scope.loading = false;
+            $scope.registerStatus = status;
+            console.log(data);
+        });
+    } else {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+
+        $location.path("/login");
+    }
 }
