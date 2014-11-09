@@ -24,8 +24,8 @@ angular.module('social-flights.controllers.flights', ['ngRoute', 'ngCookies', 'u
                     locale: 'en-GB',
                     originplace: $scope.form.from,
                     destinationplace: $scope.form.to,
-                    outbounddate: $scope.form.inbound,
-                    inbounddate: $scope.form.outbound,
+                    outbounddate: $scope.form.outbound.toString('yyyy-MM-dd'),
+                    inbounddate: $scope.form.inbound.toString('yyyy-MM-dd'),
                     adults: $scope.people,
                     children: 1,
                     locationschema: 'lata'
