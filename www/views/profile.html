@@ -4,14 +4,40 @@
       <span class="md-flex"><h1>{{message}}</h1></span>
     </div>
   </md-toolbar>
-<md-content class="md-padding" style="height: 600px;">
+<md-content class="md-padding" layout-align="space-around">
 
-    <md-whiteframe class="md-whiteframe-z1" layout layout-align="center center">
-        <h2>Email: {{ user.email }}</h2>
-        <h3>Joined Date: {{ user.joined_date | date: 'dd-MM-yyyy' }}</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center">
+        <md-toolbar class="md-theme-indigo">
+            <div class="md-toolbar-tools">
+                <span class="md-flex">Personal Info</span>
+            </div>
+        </md-toolbar>
 
+        <md-whiteframe>
+            <b>Email: </b><i>{{ user.email }}</i>
+            <br />
+            <b>First Name: </b><i>{{ user.first_name }}</i>
+            <br />
+            <b>Last Name: </b><i>{{ user.last_name }}</i>
+            <br />
+            <b>City: </b> <i>{{ user.city }}</i>
+            <br />
+            <b>Post Code: </b> <i>{{ user.postcode }}</i>
+            <br />
+            <b>Phone: </b> <i>{{ user.phone }}</i>
+            <br />
+            <b>Joined Date: </b> <i>{{ user.joined_date | date:'dd-MM-yyyy' }}</i>
+        </md-whiteframe>
+    </md-whiteframe>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" style="margin-top: 1em;">
+        <md-toolbar class="md-theme-indigo">
+            <div class="md-toolbar-tools">
+                <span class="md-flex">Flights</span>
+            </div>
+        </md-toolbar>
         <md-list>
-            <md-item ng-repeat="flight in user.flights">
+            <md-item ng-repeat="flight in flights">
                 <md-item-content>
                     <div class="md-tile-content">
                         <h3>{{flight.title}}</h3>
@@ -23,6 +49,26 @@
                 </md-item-content>
             </md-item>
         </md-list>
+    </md-whiteframe>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" style="margin-top: 1em;">
+        <md-toolbar class="md-theme-indigo">
+            <div class="md-toolbar-tools">
+                <span class="md-flex">Groups</span>
+            </div>
+        </md-toolbar>
+        <md-list>
+            <md-item ng-repeat="group in groups">
+                <md-item-content>
+                    <div class="md-tile-content">
+                        <h3>{{ group.name }}</h3>
+                        <h4>{{ group.description }}</h4>
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+
+        <md-button class="md-primary md-raised" md-theme="orange" ng-click="showGridBottomSheet($event)" aria-label=Group Options>Groups Options</md-button>
     </md-whiteframe>
 
 </md-content>

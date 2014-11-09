@@ -7,7 +7,8 @@ angular.module('social-flights', [
 
   // Controllers
   'social-flights.controllers.navigation', 'social-flights.controllers.login',
-  'social-flights.controllers', 'social-flights.register', 'social-flights.controllers.profile'
+  'social-flights.controllers', 'social-flights.register', 'social-flights.controllers.profile',
+  'social-flights.controllers.flights'
 ])
 
   //Configure routes
@@ -41,6 +42,12 @@ angular.module('social-flights', [
       .when('/profile/:id', {
         templateUrl: 'views/profile.html',
         controller: 'profileController',
+        requiresLogin: true
+      })
+
+      .when('/flights', {
+        templateUrl: 'views/flights.html',
+        controller: 'flightsController',
         requiresLogin: true
       })
 

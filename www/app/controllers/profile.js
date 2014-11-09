@@ -1,65 +1,27 @@
 angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.config'])
-    .controller('profileController', function($scope, $http, $cookieStore, $mdToast, $location, $routeParams) {
+    .controller('profileController', function($scope, $http, $cookieStore, $mdToast, $location, $routeParams, $mdBottomSheet) {
         $scope.message = 'Profile';
         $scope.user = {
             email : '',
             joined_date : new Date()
         };
 
-        var user_id = $routeParams.id;
+        $scope.user_id = $routeParams.id;
 
         var json_user = localStorage.getItem('user');
         if (json_user) {
-            $scope.user = JSON.parse(json_user);
+            var user = JSON.parse(json_user);
+            if (user.id === $scope.user_id) {
+                $scope.user = JSON.parse(json_user);
+            }
         }
 
-        //var user = $cookieStore.get('user');
-        //if (user) {
-        //    $scope.user = user;
-        //}
-
         $scope.$$phase || $scope.$apply();
-        if(checkAuth($cookieStore.get('access_token'))) {
-            $http({
-                url: backend+"/profile/"+user_id,
-                method: 'GET',
-                dataType: 'json',
-                data: {},
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Authorization': 'SOCIALFLIGHT '+$cookieStore.get('access_token')
-                }
-            }).success(function (data, status, headers, config) {
-                console.log(data);
+        if(checkAuth(localStorage.getItem('access_token'))) {
+            fetchProfile($scope, $http, $location);
+            fetchGroups($scope, $http, $location);
+            fetchFlights($scope, $http, $location);
 
-                if(data.status_code == "200"){
-                    localStorage.setItem('access_token', data.data.access_key);
-                    localStorage.setItem('user', JSON.stringify(data.data));
-
-                    //$cookieStore.put('access_token', data.data.access_key);
-                    //$cookieStore.put('user', data.data);
-
-                    $scope.user = data.data;
-
-                } else if(data.status_code == "403") {
-                    $scope.registerError = data.status_code;
-
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('user');
-
-                    //$cookieStore.remove('access_token');
-                    //$cookieStore.remove('user');
-
-                    $location.path("/login");
-
-                }
-
-                console.log(data.status_code);
-
-            }).error(function(data, status, headers, config) {
-                $scope.registerStatus = status;
-                console.log("error");
-            });
         } else {
             $mdToast.show({
                 template: '<md-toast>You must be logged in to access this</md-toast>',
@@ -67,4 +29,204 @@ angular.module('social-flights.controllers.profile', ['ngRoute', 'ngCookies', 'u
                 position: 'top right'
             });
         }
+
+        $scope.showGridBottomSheet = function($event) {
+            $mdBottomSheet.show({
+                templateUrl: 'views/templates/bottom-grid.html',
+                controller: 'GridBottomSheetCtrl',
+                targetEvent: $event
+            }).then(function(clickedItem) {
+                $scope.alert = clickedItem.name + ' clicked!';
+            });
+        };
+    })
+
+    .controller('GridBottomSheetCtrl', function($scope, $mdBottomSheet, $mdDialog) {
+
+        $scope.items = [
+            { name: 'Add Group', icon: 'fa-plus' }
+        ];
+
+        $scope.listItemClick = function($index) {
+            var clickedItem = $scope.items[$index];
+            $mdBottomSheet.hide(clickedItem);
+
+            if ($index == 0) {
+                $mdDialog.show({
+                    templateUrl: 'views/templates/add-group.html',
+                    controller: DialogController
+                }).then(function() {
+                    $scope.alert = 'You said "Okay".';
+                }, function() {
+                    $scope.alert = 'You cancelled the dialog.';
+                });
+            }
+        };
     });
+
+function DialogController($scope, $mdDialog, $http) {
+    $scope.submit = function() {
+        addGroup($scope, $http, $mdDialog);
+    };
+
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+}
+
+function fetchProfile ($scope, $http, $location) {
+    $http({
+        url: backend+"/profile/"+$scope.user_id,
+        method: 'GET',
+        dataType: 'json',
+        data: {},
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': 'SOCIALFLIGHT '+localStorage.getItem('access_token')
+        }
+    }).success(function (data, status, headers, config) {
+        console.log(data);
+
+        if(data.status_code == "200"){
+            localStorage.setItem('access_token', data.data.access_key);
+            localStorage.setItem('user', JSON.stringify(data.data));
+
+            $scope.user = data.data;
+
+        } else if(data.status_code == "403") {
+            $scope.registerError = data.status_code;
+
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+
+            $location.path("/login");
+
+        }
+
+        console.log(data.status_code);
+
+    }).error(function(data, status, headers, config) {
+        $scope.registerStatus = status;
+        console.log("error");
+    });
+}
+
+function fetchGroups ($scope, $http, $location) {
+    $http({
+        url: backend+"/users/"+$scope.user_id+'/groups',
+        method: 'GET',
+        dataType: 'json',
+        data: {},
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': 'SOCIALFLIGHT '+localStorage.getItem('access_token')
+        }
+    }).success(function (data, status, headers, config) {
+        console.log(data);
+
+        if(data.status_code == "200"){
+            $scope.groups = data.data;
+
+        } else if(data.status_code == "403") {
+            $scope.registerError = data.status_code;
+
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+
+            $location.path("/login");
+        }
+
+        console.log(data.status_code);
+
+    }).error(function(data, status, headers, config) {
+        $scope.registerStatus = status;
+        console.log("error");
+    });
+}
+
+
+function fetchFlights ($scope, $http, $location) {
+    $http({
+        url: backend+"/users/"+$scope.user_id+'/flights',
+        method: 'GET',
+        dataType: 'json',
+        data: {},
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': 'SOCIALFLIGHT '+localStorage.getItem('access_token')
+        }
+    }).success(function (data, status, headers, config) {
+        console.log(data);
+
+        if(data.status_code == "200"){
+            $scope.flights = data.data;
+
+        } else if(data.status_code == "403") {
+            $scope.registerError = data.status_code;
+
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+
+            $location.path("/login");
+        }
+
+        console.log(data.status_code);
+
+    }).error(function(data, status, headers, config) {
+        $scope.registerStatus = status;
+        console.log("error");
+    });
+}
+
+function addGroup ($scope, $http, $mdDialog, $location) {
+    var password = $scope.form.password;
+    var hash = CryptoJS.SHA512(password).toString();
+    var user = JSON.parse(localStorage.getItem('user'));
+
+    if (user) {
+        $http({
+            url: backend+"/groups/create",
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({
+                name: $scope.form.name,
+                password: hash,
+                description: $scope.form.description,
+                members: [
+                    user.id
+                ]
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': 'SOCIALFLIGHT '+localStorage.getItem('access_token')
+            }
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+
+            if(data.status_code == "200"){
+                $mdDialog.cancel();
+
+            } else if(data.status_code == "403") {
+                $scope.registerError = data.status_code;
+
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('user');
+
+                $location.path("/login");
+
+            }  else if (data.status_code == "409"){
+                $scope.formError = data.status_code + " - Group already exists.";
+            }
+
+            console.log(data.status_code);
+
+        }).error(function(data, status, headers, config) {
+            $scope.registerStatus = status;
+            console.log("error");
+        });
+    } else {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+
+    }
+}

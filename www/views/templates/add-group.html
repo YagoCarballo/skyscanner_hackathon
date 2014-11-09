@@ -1,0 +1,29 @@
+<md-dialog aria-label="Suspect app">
+    <md-toolbar class="md-theme-indigo">
+        <div class="md-toolbar-tools">
+            <span class="md-flex">Add Group</span>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-content md-theme="pink"  class="md-flex grid-content" flex>
+            <form class="form-form" name="add-group" ng-submit="submit()" >
+                <md-content layout="horizontal" layout-align="space-around">
+                    <md-text-float label="Name" ng-model="form.name" type="text" required autofocus></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around">
+                    <md-text-float label="Description" ng-model="form.description" type="text"></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around">
+                    <md-text-float label="Password" ng-model="form.password" type="password"></md-text-float>
+                </md-content>
+
+                <md-content layout="horizontal" layout-align="space-around" style="margin-top: 3em;">
+                    <md-button md-theme="red" class="md-raised md-primary" type="button" ng-click="cancel()" aria-label="create group" flex="50"  style="margin-right: 1em;">Cancel</md-button>
+                    <md-button md-theme="default" class="md-raised md-primary" type="submit" aria-label="create group" flex="50">Add</md-button>
+                </md-content>
+            </form>
+        </md-content>
+    </md-content>
+</md-dialog>

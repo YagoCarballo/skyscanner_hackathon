@@ -1,0 +1,20 @@
+<md-toolbar md-theme="indigo">
+    <div class="md-toolbar-tools">
+        <div ng-include="'back.html'"></div>
+        <span class="md-flex"><h1>Flights</h1></span>
+    </div>
+</md-toolbar>
+<md-content class="md-padding" style="width: 100%;">
+    <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
+        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <md-text-float label="From" ng-model="form.from"> </md-text-float>
+            <md-text-float label="To" ng-model="form.to"> </md-text-float>
+        </md-content>
+
+        <md-content layout="horizontal" layout-align="space-around" style="width: 100% !important;">
+            <md-text-float label="Outbound" type="date" ng-model="form.from"> </md-text-float>
+            <md-text-float label="Inbound" type="date" ng-model="form.to"> </md-text-float>
+        </md-content>
+    </md-whiteframe>
+
+</md-content>

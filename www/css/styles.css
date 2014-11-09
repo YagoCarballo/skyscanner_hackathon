@@ -84,3 +84,12 @@ md-toolbar {
   background: none;
   border: none;
 }
+
+.grid-content {
+  padding: 0em;
+}
+
+.grid-icon-fa {
+  margin-left: 0.75em;
+  margin-top: 0.5em;
+}

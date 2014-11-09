@@ -30,7 +30,7 @@ angular.module('social-flights.register', ['ngRoute', 'ngCookies', 'social-fligh
 
          if (first_name) object_to_update.first_name = first_name;
          if (last_name) object_to_update.last_name = last_name;
-         if (phone) object_to_update.phone = phone;
+         if (phone) object_to_update.phone_number = phone;
          if (city) object_to_update.city = city;
          if (postcode) object_to_update.postcode = postcode;
 
