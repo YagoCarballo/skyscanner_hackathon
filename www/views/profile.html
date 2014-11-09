@@ -36,16 +36,16 @@
                 <span class="md-flex">Flights</span>
             </div>
         </md-toolbar>
-        <md-list>
-            <md-item ng-repeat="flight in flights">
+        <md-list flex style="width: 100%;">
+            <md-item ng-repeat="flight in flights" style="cursor: hand;" ng-click="flightDetails(flight)" flex>
                 <md-item-content>
-                    <div class="md-tile-content">
+                    <md-button class="md-primary" md-theme="green" aria-label="group button" flex style="width: 100%;height: 8em;border-bottom:solid 1px #70c4cc;">
                         <h3>{{flight.title}}</h3>
                         <h4>{{flight.out_date | date: 'dd-MM-yyyy HH:mm'}}</h4>
                         <p>
                             £ {{flight.price | number:2}}
                         </p>
-                    </div>
+                    </md-button>
                 </md-item-content>
             </md-item>
         </md-list>
