@@ -1,4 +1,4 @@
-angular.module('social-flights.controllers.group', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.config'])
+angular.module('social-flights.controllers.flight', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.config'])
     .controller('flightController', function($scope, $http, $cookieStore, $mdToast, $location, $routeParams, $mdBottomSheet) {
         $scope.flight_id = $routeParams.id;
         $scope.flight = {};
