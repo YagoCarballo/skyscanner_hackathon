@@ -15,7 +15,7 @@
 
     <md-whiteframe class="md-whiteframe-z1" layout="vertical" layout-align="center center" flex>
         <h2 style="display: inline;">Price</h2><h3 style="display: inline;color: #00510c;">£ {{flight.price | number:2}}</h3>
-        <md-button ng-hide="hideButton" class="md-raised" style="background-color: #00ff00;">Travel together</md-button>
+        <md-button ng-hide="hideButton" class="md-raised" style="background-color: #00ff00;" ng-click="buy()">Travel together</md-button>
     </md-whiteframe>
 
 </md-content>

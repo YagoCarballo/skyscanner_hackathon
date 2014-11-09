@@ -60,7 +60,7 @@
     </md-toolbar>
 
     <md-content class="md-padding" ng-controller="LeftCtrl">
-      <button class="menu-item menu-title" ng-click="load('/')"         ink-ripple>Home</button>
+      <button class="menu-item menu-title" ng-click="load('/home')"         ink-ripple>Home</button>
       <button class="menu-item menu-title" ng-click="load('/login')"    ink-ripple ng-hide="isLoggedIn">Login</button>
       <button class="menu-item menu-title" ng-click="load('/register')" ink-ripple ng-hide="isLoggedIn">Register</button>
       <button class="menu-item menu-title" ng-click="load('/profile')"  ink-ripple ng-show="isLoggedIn">Profile</button>

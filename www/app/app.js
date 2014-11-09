@@ -20,7 +20,7 @@ angular.module('social-flights', [
     $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
 
-      .when('/', {
+      .when('/home', {
         templateUrl: 'views/home.html',
         controller: 'appController',
         requiresLogin: true
@@ -64,7 +64,7 @@ angular.module('social-flights', [
       })
 
     // if none of the above states are matched, use this as the fallback
-    .otherwise('/');
+    .otherwise('/login');
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $window) {

@@ -47,10 +47,10 @@ angular.module('social-flights.controllers.group', ['ngRoute', 'ngCookies', 'ui.
             $location.path("/flights");
         };
 
-        fetchFlights($scope, $http, $location);
+        fetchFlighs($scope, $http, $location);
     });
 
-function fetchFlights ($scope, $http, $location) {
+function fetchFlighs ($scope, $http, $location) {
     $http({
         url: backend+"/groups/"+$scope.group_id+'/flights',
         method: 'GET',

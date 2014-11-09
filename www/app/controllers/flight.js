@@ -1,5 +1,5 @@
 angular.module('social-flights.controllers.flight', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'social-flights.config'])
-    .controller('flightController', function($scope, $http, $cookieStore, $mdToast, $location, $routeParams, $mdBottomSheet) {
+    .controller('flightController', function($scope, $http, $cookieStore, $mdToast, $location, $routeParams, $window, $mdBottomSheet) {
         $scope.flight_id = $routeParams.id;
         $scope.flight = {
             title : '',
@@ -9,6 +9,11 @@ angular.module('social-flights.controllers.flight', ['ngRoute', 'ngCookies', 'ui
 
         $scope.parseDate = function (date) {
             return new Date(date).toString('dd-MM-yyyy');
+        };
+
+        $scope.buy = function () {
+            PopulateDB($scope, $http, $location, $scope.flight);
+            $window.open($scope.flight.deeplink);
         };
 
         $scope.hideButton = false;
@@ -97,3 +102,44 @@ angular.module('social-flights.controllers.flight', ['ngRoute', 'ngCookies', 'ui
             });
         };
     });
+
+function PopulateDB ($scope, $http, $location, flight) {
+    var user = JSON.parse(localStorage.getItem('user'));
+
+    if (user) {
+        $http({
+            url: backend + '/user/'+user.id+'/flight',
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({
+                country: 'GB',
+                currency: 'GBP',
+                locale: 'en-GB',
+                originplace: flight.from,
+                destinationplace: flight.to,
+                outbounddate: new Date(flight.outbound).toString('yyyy-MM-dd'),
+                inbounddate: new Date(flight.inbound).toString('yyyy-MM-dd'),
+                adults: $scope.people,
+                children: 0,
+                price: flight.price,
+                outboundlegid: flight.outboundlegid,
+                inboundlegid: flight.inboundlegid,
+                deeplink: flight.url
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': 'SOCIALFLIGHT ' + localStorage.getItem('access_token')
+            }
+        }).success(function (data, status, headers, config) {
+        }).error(function (data, status, headers, config) {
+            $scope.loading = false;
+            $scope.registerStatus = status;
+            console.log(data);
+        });
+    } else {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+
+        $location.path("/login");
+    }
+}
